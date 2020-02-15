@@ -4,17 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class Response(
-    @Json(name = "subsonic-response") val subsonicResponse: SubsonicResponse
-)
-
-@JsonClass(generateAdapter = true)
-data class SubsonicResponse(
-    @Json(name = "status") val status: String,
-    @Json(name = "version") val version: String,
-    @Json(name = "artists") val artists: Artists
-)
-
+data class ArtistsResponse(@Json(name = "artists") val artists: Artists) : SubsonicResponse
 
 @JsonClass(generateAdapter = true)
 data class Artists(
@@ -29,10 +19,4 @@ data class Artists(
     )
 }
 
-@JsonClass(generateAdapter = true)
-data class Artist(
-    @Json(name = "id") val id: Int,
-    @Json(name = "name") val name: String,
-    @Json(name = "coverArt") val coverArt: String,
-    @Json(name = "albumCount") val albumCount: Int
-)
+
