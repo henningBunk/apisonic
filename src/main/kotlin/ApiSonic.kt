@@ -191,7 +191,7 @@ class ApiSonic(
     //TODO test
     suspend fun getStarred2(
         musicFolderId: String? = null
-    ): Starred = api.getStarred2(musicFolderId).subsonicResponse.starred
+    ): Starred2 = api.getStarred2(musicFolderId).subsonicResponse.starred2
 
     //TODO Test
     suspend fun startScan(): ScanStatus = api.startScan().subsonicResponse.scanStatus
