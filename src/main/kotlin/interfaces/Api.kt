@@ -14,6 +14,10 @@ interface Api {
     suspend fun getLicense(
     ): Response<LicenseResponse>
 
+    @GET("getNowPlaying")
+    suspend fun getNowPlaying(
+    ): Response<NowPlayingResponse>
+
     @GET("getArtists")
     suspend fun getArtists(
     ): Response<ArtistsResponse>
@@ -78,6 +82,22 @@ interface Api {
         @Query("count") count: Int?
     ): Response<TopSongsResponse>
 
+    @GET("getRandomSongs")
+    fun getRandomSongs(
+        @Query("size") size: Int?,
+        @Query("genre") genre: String?,
+        @Query("fromYear") fromYear: Int?,
+        @Query("toYear") toYear: Int?,
+        @Query("musicFolderId") musicFolderId: String?
+    ): Response<RandomSongsResponse>
+
+    fun getSongsByGenre(
+        @Query("genre") genre: String,
+        @Query("count") count: Int?,
+        @Query("offset") offset: Int?,
+        @Query("musicFolderId") musicFolderId: String?
+    ): Response<SongsByGenreResponse>
+
     @GET("getMusicFolders")
     suspend fun getMusicFolders(
     ): Response<MusicFoldersResponse>
@@ -92,5 +112,47 @@ interface Api {
     suspend fun getMusicDirectory(
         @Query("id") id: String
     ): Response<MusicDirectoryResponse>
+
+    @GET("startScan")
+    suspend fun startScan(
+    ): Response<ScanStatusResponse>
+
+    @GET("getScanStatus")
+    suspend fun getScanStatus(
+    ): Response<ScanStatusResponse>
+
+    @GET("getAlbumList")
+    suspend fun getAlbumList(
+        @Query("type") type: String,
+        @Query("size") size: Int?,
+        @Query("offset") offset: Int?,
+        @Query("fromYear") fromYear: Int?,
+        @Query("toYear") toYear: Int?,
+        @Query("genre") genre: String?,
+        @Query("musicFolderId") musicFolderId: String?
+    ): Response<AlbumListResponse>
+
+    @GET("getAlbumList2")
+    suspend fun getAlbumList2(
+        @Query("type") type: String,
+        @Query("size") size: Int?,
+        @Query("offset") offset: Int?,
+        @Query("fromYear") fromYear: Int?,
+        @Query("toYear") toYear: Int?,
+        @Query("genre") genre: String?,
+        @Query("musicFolderId") musicFolderId: String?
+    ): Response<AlbumList2Response>
+
+    @GET("getStarred")
+    suspend fun getStarred(
+        @Query("musicFolderId") musicFolderId: String?
+    ): Response<StarredResponse>
+
+
+    @GET("getStarred2")
+    suspend fun getStarred2(
+        @Query("musicFolderId") musicFolderId: String?
+    ): Response<Starred2Response>
+
 
 }

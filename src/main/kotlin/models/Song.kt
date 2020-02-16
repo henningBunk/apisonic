@@ -22,6 +22,20 @@ data class TopSongs(@Json(name = "song") val topSongs: List<Song>)
 
 
 @JsonClass(generateAdapter = true)
+data class RandomSongsResponse(@Json(name = "randomSongs") val randomSongs: RandomSongs) : SubsonicResponse
+
+@JsonClass(generateAdapter = true)
+data class RandomSongs(@Json(name = "song") val randomSongs: List<Song>)
+
+
+@JsonClass(generateAdapter = true)
+data class SongsByGenreResponse(@Json(name = "songsByGenre") val songsByGenre: SongsByGenre) : SubsonicResponse
+
+@JsonClass(generateAdapter = true)
+data class SongsByGenre(@Json(name = "song") val songsByGenre: List<Song>)
+
+
+@JsonClass(generateAdapter = true)
 data class Song(
     @Json(name = "album") val album: String,
     @Json(name = "albumId") val albumId: String,
@@ -43,5 +57,8 @@ data class Song(
     @Json(name = "title") val title: String,
     @Json(name = "track") val track: Int,
     @Json(name = "type") val type: String,
-    @Json(name = "year") val year: Int
+    @Json(name = "year") val year: Int,
+    @Json(name = "starred") val starred: String?,
+    @Json(name = "averageRating") val averageRating: Double?,
+    @Json(name = "userRating") val userRating: Int?
 )

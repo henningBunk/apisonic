@@ -10,11 +10,13 @@ data class Response<T : SubsonicResponse>(
     @Json(name = "subsonic-response") val subsonicResponse: T
 )
 
+
 @JsonClass(generateAdapter = true)
 data class PingResponse(
     @Json(name = "status") val status: String,
     @Json(name = "version") val version: String
 ) : SubsonicResponse
+
 
 @JsonClass(generateAdapter = true)
 data class LicenseResponse(
@@ -27,3 +29,5 @@ data class License(
     @Json(name = "trialExpires") val trialExpires: String,
     @Json(name = "valid") val valid: Boolean
 )
+
+

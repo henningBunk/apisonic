@@ -21,5 +21,3 @@ data class Album(
     @Json(name = "songCount") val songCount: Int,
     @Json(name = "year") val year: Int
 )
-
-

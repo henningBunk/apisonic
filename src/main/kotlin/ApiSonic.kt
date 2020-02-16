@@ -1,12 +1,16 @@
 import interfaces.Api
 import models.*
-import network.*
+import network.AuthenticationInterceptor
+import network.NetworkFactory
 
 // Time spent: 10h
 // begin 1030
 
 // TODO
 // [] create better tests with mockwebserver
+// [] add more api calls
+// [] maybe do not re-use models? (artists vs artist)
+// [] organize api calls a little better
 // [] create a dope md file with sweet badges
 // [] upload to github
 // [] configure github actions for unit testing
@@ -15,6 +19,9 @@ import network.*
 // [] add javadoc
 // [] add Wrapper for Ids in form of inline classes?
 // [] use token instead of password
+// [] test if some fields are missing in the models. like starred for song, album artist.
+// [] why do getStarred and getStarred2 return so different results?
+// [] hide all methods which arent relevant for a consumer
 
 class ApiSonic(
     url: String,
@@ -114,7 +121,134 @@ class ApiSonic(
         return api.getMusicDirectory(id).subsonicResponse.directory
     }
 
+    enum class ListType(val value: String) {
+        RANDOM("random"),
+        NEWEST("newest"),
+        HIGHEST("highest"),
+        FREQUENT("frequent"),
+        RECENT("recent"),
+        ALPHABETICAL_BY_NAME("alphabeticalByName"),
+        ALPHABETICAL_BY_ARTIST("alphabeticalByArtist"),
+        STARRED("starred"),
+        BY_YEAR("byYear"),
+        BY_GENRE("byGenre"),
+    }
 
+    //TODO test
+    suspend fun getAlbumList(
+        type: ListType,
+        size: Int? = null,
+        offset: Int? = null,
+        fromYear: Int? = null,
+        toYear: Int? = null,
+        genre: String? = null,
+        musicFolderId: String? = null
+    ): List<AlbumList.Album> = api.getAlbumList(
+        type.value, size, offset, fromYear, toYear, genre, musicFolderId
+    ).subsonicResponse.albumList.albums
+
+    //TODO test
+    suspend fun getAlbumList2(
+        type: ListType,
+        size: Int? = null,
+        offset: Int? = null,
+        fromYear: Int? = null,
+        toYear: Int? = null,
+        genre: String? = null,
+        musicFolderId: String? = null
+    ): List<AlbumList2.Album> = api.getAlbumList2(
+        type.value, size, offset, fromYear, toYear, genre, musicFolderId
+    ).subsonicResponse.albumList2.albums
+
+    //TODO test
+    suspend fun getRandomSongs(
+        size: Int? = null,
+        genre: String? = null,
+        fromYear: Int? = null,
+        toYear: Int? = null,
+        musicFolderId: String? = null
+    ): List<Song> = api.getRandomSongs(
+        size, genre, fromYear, toYear, musicFolderId
+    ).subsonicResponse.randomSongs.randomSongs
+
+    //TODO test
+    suspend fun getSongsByGenre(
+        genre: String,
+        count: Int? = null,
+        offset: Int? = null,
+        musicFolderId: String? = null
+    ): List<Song> = api.getSongsByGenre(
+        genre, count, offset, musicFolderId
+    ).subsonicResponse.songsByGenre.songsByGenre
+
+    //TODO test
+    suspend fun getNowPlaying(): List<NowPlayingEntry> = api.getNowPlaying().subsonicResponse.nowPlaying.entries
+
+    //TODO test
+    suspend fun getStarred(
+        musicFolderId: String? = null
+    ): Starred = api.getStarred(musicFolderId).subsonicResponse.starred
+
+    //TODO test
+    suspend fun getStarred2(
+        musicFolderId: String? = null
+    ): Starred = api.getStarred2(musicFolderId).subsonicResponse.starred
+
+    //TODO Test
+    suspend fun startScan(): ScanStatus = api.startScan().subsonicResponse.scanStatus
+
+    //Todo Test
+    suspend fun getScanStatus(): ScanStatus = api.getScanStatus().subsonicResponse.scanStatus
+
+//    suspend fun get():  {
+//        return api.get().subsonicResponse.
+//    }
+//
+//    suspend fun get():  {
+//        return api.get().subsonicResponse.
+//    }
+//    suspend fun get():  {
+//        return api.get().subsonicResponse.
+//    }
+//
+//    suspend fun get():  {
+//        return api.get().subsonicResponse.
+//    }
+//    suspend fun get():  {
+//        return api.get().subsonicResponse.
+//    }
+//
+//    suspend fun get():  {
+//        return api.get().subsonicResponse.
+//    }
+//    suspend fun get():  {
+//        return api.get().subsonicResponse.
+//    }
+//
+//    suspend fun get():  {
+//        return api.get().subsonicResponse.
+//    }
+//    suspend fun get():  {
+//        return api.get().subsonicResponse.
+//    }
+//
+//    suspend fun get():  {
+//        return api.get().subsonicResponse.
+//    }
+//    suspend fun get():  {
+//        return api.get().subsonicResponse.
+//    }
+//
+//    suspend fun get():  {
+//        return api.get().subsonicResponse.
+//    }
+//    suspend fun get():  {
+//        return api.get().subsonicResponse.
+//    }
+//
+//    suspend fun get():  {
+//        return api.get().subsonicResponse.
+//    }
 //    suspend fun get():  {
 //        return api.get().subsonicResponse.
 //    }

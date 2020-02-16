@@ -1,12 +1,10 @@
 import io.kotlintest.matchers.collections.shouldContain
-import io.kotlintest.matchers.string.shouldContain
 import io.kotlintest.shouldBe
 import io.kotlintest.shouldNotBe
 import io.kotlintest.specs.WordSpec
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
-
 
 class GetArtistsTest : WordSpec() {
 
@@ -83,7 +81,7 @@ class GetArtistsTest : WordSpec() {
                 val metisse = artists.indices
                     .firstOrNull { it.name == "M" }
                     ?.artists
-                    ?.firstOrNull { it.name == "METISSE"}
+                    ?.firstOrNull { it.name == "METISSE" }
                 metisse shouldNotBe null
                 metisse?.id shouldBe "6"
                 metisse?.coverArt shouldBe "ar-6"
