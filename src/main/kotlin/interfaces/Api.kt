@@ -3,9 +3,16 @@ package interfaces
 import models.*
 import retrofit2.http.GET
 import retrofit2.http.Query
-import javax.management.monitor.StringMonitor
 
 interface Api {
+
+    @GET("ping")
+    suspend fun ping(
+    ): Response<PingResponse>
+
+    @GET("getLicense")
+    suspend fun getLicense(
+    ): Response<LicenseResponse>
 
     @GET("getArtists")
     suspend fun getArtists(

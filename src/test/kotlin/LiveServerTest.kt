@@ -1,3 +1,4 @@
+import io.kotlintest.shouldBe
 import io.kotlintest.specs.WordSpec
 import kotlinx.coroutines.runBlocking
 
@@ -15,14 +16,18 @@ class LiveServerTest : WordSpec() {
                 "apisonic"
             )
 
-            "return a ping" {
-                runBlocking {
-                    //TODO
+            "be possible to ping with an 'ok' status" {
+                val ping = runBlocking {
+                    demoServer.ping()
                 }
+                ping.status shouldBe "ok"
             }
 
-            "return a licence" {
-                //TODO
+            "return a valid licence" {
+                val license = runBlocking {
+                    demoServer.getLicense()
+                }
+                license.valid shouldBe true
             }
         }
     }

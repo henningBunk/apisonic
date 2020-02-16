@@ -27,20 +27,30 @@ class GetSimilarSongsTest : WordSpec() {
             clientId
         )
 
-        "The similarSongs object from the mock web server for song id '5'" should {
+        server.enqueue(MockResponse().setBody(getJson("responses/similarSongs.json")))
 
-            server.enqueue(MockResponse().setBody(getJson("responses/similarSongs.json")))
+        val similarSongs = runBlocking { mockServer.getSimilarSongs("5", 10) }
 
-            val similarSongs = runBlocking { mockServer.getSimilarSongs("5", 10) }
-
+        "A request for 10 similarSongs for the song id '5'" should {
             val request = server.takeRequest()
+
+            "be made against the path '/getSimilarSongs'" {
+                request.path shouldContain "/getSimilarSongs"
+            }
+
+            "contain the id '5'" {
+                request.path shouldContain "id=5"
+            }
+
+            "contain the count 10" {
+                request.path shouldContain "count=10"
+            }
+        }
+
+        "The similarSongs object from the mock web server for song id '5'" should {
 
             "contain a list of similar songs containing a song with id '72'" {
                 similarSongs.find { it.id == "72" } shouldNotBe null
-            }
-
-            "the request should contain the id '5'" {
-                request.path shouldContain "id=5"
             }
         }
     }

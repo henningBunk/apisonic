@@ -33,6 +33,10 @@ class ApiSonic(
 
     private val api = network.createApi(Api::class.java, url)
 
+    suspend fun ping(): PingResponse = api.ping().subsonicResponse
+
+    suspend fun getLicense(): License = api.getLicense().subsonicResponse.license
+
     suspend fun getArtists(): Artists = api.getArtists().subsonicResponse.artists
 
     //TODO Test this
