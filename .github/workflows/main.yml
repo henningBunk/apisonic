@@ -1,0 +1,14 @@
+name: Unit Tests
+
+on: [push]
+
+jobs:
+  test:
+    name: Run unit tests
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Clean up
+      run: ./gradlew clean cleanTest
+    - name: Run the tests
+      run: ./gradlew test --info
