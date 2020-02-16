@@ -4,7 +4,7 @@ import models.*
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface Browsing {
+interface Api {
 
     @GET("getArtists")
     suspend fun getArtists(
