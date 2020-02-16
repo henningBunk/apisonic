@@ -35,31 +35,41 @@ class ApiSonic(
 
     suspend fun getArtists(): Artists = api.getArtists().subsonicResponse.artists
 
+    //TODO Test this
     suspend fun getArtist(id: String): Artist = api.getArtist(id).subsonicResponse.artist
 
+    //TODO Test this
     suspend fun getAlbum(id: String): Album = api.getAlbum(id).subsonicResponse.album
 
+    //TODO Test this
     suspend fun getSong(id: String): Song = api.getSong(id).subsonicResponse.song
 
+    //TODO Test this
     suspend fun getVideos(): List<Video> = api.getVideos().subsonicResponse.videos.videos
 
+    //TODO Test this
     suspend fun getVideoInfo(id: String): VideoInfo = api.getVideoInfo(id).subsonicResponse.videoInfo
 
+    //TODO Test this
     suspend fun getArtistInfo(
         id: String,
         count: Int? = null,
         includeNotPresent: Boolean? = null
     ): ArtistInfo = api.getArtistInfo(id, count, includeNotPresent).subsonicResponse.artistInfo
 
+    //TODO Test this
     suspend fun getArtistInfo2(
         id: String,
         count: Int? = null,
         includeNotPresent: Boolean? = null
     ): ArtistInfo = api.getArtistInfo2(id, count, includeNotPresent).subsonicResponse.artistInfo2
 
-//    suspend fun getSimilarSongs(): List<Song> {
-//        return api.getSimilarSongs().subsonicResponse.similarSongs
-//    }
+    suspend fun getSimilarSongs(
+        id: String,
+        count: Int? = null
+    ): List<Song> {
+        return api.getSimilarSongs(id, count).subsonicResponse.similarSongs.similarSongs
+    }
 //
 //    suspend fun getSimilarSongs2(): List<Song> {
 //        return api.getSimilarSongs2().subsonicResponse.similarSongs

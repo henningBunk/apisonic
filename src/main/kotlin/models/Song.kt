@@ -7,6 +7,14 @@ import com.squareup.moshi.JsonClass
 data class SongResponse(@Json(name = "song") val song: Song) : SubsonicResponse
 
 @JsonClass(generateAdapter = true)
+data class SimilarSongsResponse(@Json(name = "similarSongs") val similarSongs: SimilarSongs) : SubsonicResponse
+
+@JsonClass(generateAdapter = true)
+data class SimilarSongs(
+    @Json(name = "song") val similarSongs: List<Song>
+)
+
+@JsonClass(generateAdapter = true)
 data class Song(
     @Json(name = "album") val album: String,
     @Json(name = "albumId") val albumId: String,

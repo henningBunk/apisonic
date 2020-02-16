@@ -18,17 +18,12 @@ data class Artists(
         @Json(name = "artist") val artists: List<Artist>
     )
 
-    fun ignoredArticlesList(): List<String> {
-        return ignoredArticles.split(' ')
-    }
+    fun ignoredArticlesList(): List<String> = ignoredArticles.split(' ')
 
-    fun asArtistList(): List<Artist> {
-        return indices.flatMap { index: Index -> index.artists }
-    }
+    fun asArtistList(): List<Artist> = indices.flatMap { index: Index -> index.artists }
 
-    fun asIndexedMap(): Map<String, List<Artist>> {
-        return indices.associate { index: Index -> Pair(index.name, index.artists) }
-    }
+    fun asIndexedMap(): Map<String, List<Artist>> =
+        indices.associate { index: Index -> Pair(index.name, index.artists) }
 }
 
 

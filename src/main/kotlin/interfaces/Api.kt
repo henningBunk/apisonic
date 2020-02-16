@@ -3,6 +3,7 @@ package interfaces
 import models.*
 import retrofit2.http.GET
 import retrofit2.http.Query
+import javax.management.monitor.StringMonitor
 
 interface Api {
 
@@ -47,5 +48,11 @@ interface Api {
         @Query("count") count: Int?,
         @Query("includeNotPresent") includeNotPresent: Boolean?
     ): Response<ArtistInfo2Response>
+
+    @GET("getSimilarSongs")
+    suspend fun getSimilarSongs(
+        @Query("id") id: String,
+        @Query("count") count: Int?
+    ): Response<SimilarSongsResponse>
 
 }
