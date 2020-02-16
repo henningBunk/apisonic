@@ -39,6 +39,9 @@ class ApiSonic(
 
     suspend fun getArtists(): Artists = api.getArtists().subsonicResponse.artists
 
+    //TODO Test
+    suspend fun getGenres(): List<Genre> = api.getGenres().subsonicResponse.genres.genres
+
     //TODO Test this
     suspend fun getArtist(id: String): Artist = api.getArtist(id).subsonicResponse.artist
 
@@ -74,31 +77,44 @@ class ApiSonic(
     ): List<Song> {
         return api.getSimilarSongs(id, count).subsonicResponse.similarSongs.similarSongs
     }
-//
-//    suspend fun getSimilarSongs2(): List<Song> {
-//        return api.getSimilarSongs2().subsonicResponse.similarSongs
-//    }
-//
-//    suspend fun getTopSongs(): List<Song> {
-//        return api.getTopSongs().subsonicResponse.topSongs
-//    }
-//
-//    suspend fun getMusicFolders(): List<Folder> {
-//        return api.getMusicFolders().subsonicResponse.musicFolders
-//    }
-//
-//    suspend fun getIndexes(): Indexes {
-//        return api.getIndexes().subsonicResponse.indexes
-//    }
-//
-//    suspend fun getMusicDirectory(): MusicDirectory {
-//        return api.getMusicDirectory().subsonicResponse.musicDirectory
-//    }
-//
-//    suspend fun getGenres(): List<Genre> {
-//        return api.getGenres().subsonicResponse.genres
-//    }
-//
+
+    //TODO Test
+    suspend fun getSimilarSongs2(
+        id: String,
+        count: Int? = null
+    ): List<Song> {
+        return api.getSimilarSongs2(id, count).subsonicResponse.similarSongs.similarSongs
+    }
+
+    //TODO Test
+    suspend fun getTopSongs(
+        artist: String,
+        count: Int? = null
+    ): List<Song> {
+        return api.getTopSongs(artist, count).subsonicResponse.topSongs.topSongs
+    }
+
+    //TODO Test
+    suspend fun getMusicFolders(): List<MusicFolder> {
+        return api.getMusicFolders().subsonicResponse.musicFolders.musicFolders
+    }
+
+    //TODO Test
+    suspend fun getIndexes(
+        musicFolderId: String? = null,
+        ifModifiedSince: Long? = null
+    ): Indexes {
+        return api.getIndexes(musicFolderId, ifModifiedSince).subsonicResponse.indexes
+    }
+
+    //TODO test
+    suspend fun getMusicDirectory(
+        id: String
+    ): Directory {
+        return api.getMusicDirectory(id).subsonicResponse.directory
+    }
+
+
 //    suspend fun get():  {
 //        return api.get().subsonicResponse.
 //    }

@@ -18,6 +18,10 @@ interface Api {
     suspend fun getArtists(
     ): Response<ArtistsResponse>
 
+    @GET("getGenre")
+    suspend fun getGenres(
+    ): Response<GenreResponse>
+
     @GET("getArtist")
     suspend fun getArtist(
         @Query("id") id: String
@@ -61,5 +65,32 @@ interface Api {
         @Query("id") id: String,
         @Query("count") count: Int?
     ): Response<SimilarSongsResponse>
+
+    @GET("getSimilarSongs2")
+    suspend fun getSimilarSongs2(
+        @Query("id") id: String,
+        @Query("count") count: Int?
+    ): Response<SimilarSongsResponse>
+
+    @GET("getTopSongs")
+    suspend fun getTopSongs(
+        @Query("artist") artist: String,
+        @Query("count") count: Int?
+    ): Response<TopSongsResponse>
+
+    @GET("getMusicFolders")
+    suspend fun getMusicFolders(
+    ): Response<MusicFoldersResponse>
+
+    @GET("getIndexes")
+    suspend fun getIndexes(
+        @Query("musicFolderId") musicFolderId: String?,
+        @Query("ifModifiedSince") ifModifiedSince: Long?
+    ): Response<IndexesResponse>
+
+    @GET("getMusicDirectory")
+    suspend fun getMusicDirectory(
+        @Query("id") id: String
+    ): Response<MusicDirectoryResponse>
 
 }
