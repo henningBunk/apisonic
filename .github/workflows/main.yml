@@ -8,7 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Clean up
-      run: ./gradlew clean cleanTest
-    - name: Run the tests
-      run: ./gradlew test --info
+    - uses: actions/checkout@master
+    - uses: OrangeLabs-moe/gradle-actions@v5.0-openjdk-8
+      with:
+        args: clean cleanTest test 
+
