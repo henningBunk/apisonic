@@ -10,15 +10,15 @@ import network.NetworkFactory
 // [] add more api calls
 // [] maybe do not re-use models? (artists vs artist)
 // [] organize api calls a little better
-// [] create a dope md file with sweet badges
-// [] upload to github
-// [] configure github actions for unit testing
+// [x] create a dope md file with sweet badges
+// [x] upload to github
+// [x] configure github actions for unit testing
 // [] upload to some sort of repository (maven, jitpack)
 // [] think about nullability, error handling etc... write test cases
 // [] add javadoc
 // [] add Wrapper for Ids in form of inline classes?
 // [] use token instead of password
-// [] test if some fields are missing in the models. like starred for song, album artist.
+// [] check if some fields are missing in the models. like starred for song, album artist.
 // [] why do getStarred and getStarred2 return so different results?
 // [] hide all methods which arent relevant for a consumer
 
