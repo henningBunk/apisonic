@@ -3,8 +3,7 @@ import models.*
 import network.AuthenticationInterceptor
 import network.NetworkFactory
 
-// Time spent: 10h
-// begin 1030
+// Time spent: 18h
 
 // TODO
 // [] create better tests with mockwebserver
