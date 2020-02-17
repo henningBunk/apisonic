@@ -28,6 +28,7 @@ class NetworkFactory(
         retrofitBuilder = Retrofit.Builder()
             .addConverterFactory(moshiConverterFactory)
             .client(okHttpClient)
+
     }
 
     fun <T> createApi(

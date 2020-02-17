@@ -10,6 +10,8 @@ class AuthenticationInterceptor(
     private val clientId: String
 ) : Interceptor {
 
+    val joinedQueries = "u=$userName&p=$password&v=$apiVersion&c=$clientId&f=json"
+
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val url = request.url.newBuilder()
@@ -21,4 +23,5 @@ class AuthenticationInterceptor(
             .build()
         return chain.proceed(request.newBuilder().url(url).build())
     }
+
 }

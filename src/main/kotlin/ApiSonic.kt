@@ -2,6 +2,7 @@ import interfaces.Api
 import models.*
 import network.AuthenticationInterceptor
 import network.NetworkFactory
+import okhttp3.ResponseBody
 
 // Time spent: 18h
 
@@ -23,7 +24,7 @@ import network.NetworkFactory
 // [] hide all methods which arent relevant for a consumer
 
 class ApiSonic(
-    url: String,
+    private val url: String,
     userName: String,
     password: String,
     apiVersion: String,
@@ -38,6 +39,15 @@ class ApiSonic(
     )
 
     private val api = network.createApi(Api::class.java, url)
+
+    private fun buildUrlManually(path: String, queryMap: Map<String, Any?>): String {
+        val queries = queryMap
+            .filter { it.value == null }
+            .map { "${it.key}=${it.value}" }
+            .joinToString("&")
+
+        return "$url${if (url.endsWith("/")) "" else "/"}$path?${authenticationInterceptor.joinedQueries}&$queries"
+    }
 
     suspend fun ping(): EmptyResponse = api.ping().subsonicResponse
 
@@ -305,13 +315,93 @@ class ApiSonic(
     ): EmptyResponse =
         api.deletePlaylist(playlistId).subsonicResponse
 
-//    suspend fun get():  {
-//        return api.get().subsonicResponse.
-//    }
-//    suspend fun get():  {
-//        return api.get().subsonicResponse.
-//    }
-//
+    //TODO TEST
+    fun streamAudioUrl(
+        id: String,
+        maxBitRate: Int? = null,
+        format: String? = null,
+        estimateContentLength: Boolean? = null,
+        transcode: Boolean = false
+    ): String = buildUrlManually(
+        "stream",
+        mapOf(
+            "id" to id,
+            "maxBitRate" to maxBitRate,
+            "format" to if (transcode) "raw" else format,
+            "estimateContentLength" to estimateContentLength
+        )
+    )
+
+    //TODO TEST
+    fun streamVideoUrl(
+        id: String,
+        maxBitRate: Int? = null,
+        format: String? = null,
+        timeOffset: Int? = null,
+        size: String? = null,
+        estimateContentLength: Boolean? = null,
+        converted: Boolean? = null,
+        transcode: Boolean = false
+    ): String = buildUrlManually(
+        "stream",
+        mapOf(
+            "id" to id,
+            "maxBitRate" to maxBitRate,
+            "format" to if (transcode) "raw" else format,
+            "timeOffset" to timeOffset,
+            "size" to size,
+            "estimateContentLength" to estimateContentLength,
+            "converted" to converted
+        )
+    )
+
+    //TODO
+    fun downloadUrl(
+        id: String
+    ): String = buildUrlManually("download", mapOf("id" to id))
+
+    //TODO TEST
+    fun streamAudio(
+        id: String,
+        maxBitRate: Int? = null,
+        format: String? = null,
+        estimateContentLength: Boolean? = null,
+        transcode: Boolean = false
+    ): ResponseBody = api.stream(
+        id = id,
+        maxBitRate = maxBitRate,
+        format = if (transcode) "raw" else format,
+        estimateContentLength = estimateContentLength,
+        timeOffset = null,
+        size = null,
+        converted = null
+    )
+
+    //TODO TEST
+    fun streamVideo(
+        id: String,
+        maxBitRate: Int? = null,
+        format: String? = null,
+        timeOffset: Int? = null,
+        estimateContentLength: Boolean? = null,
+        size: String? = null,
+        converted: Boolean? = null,
+        transcode: Boolean = false
+    ): ResponseBody = api.stream(
+        id = id,
+        maxBitRate = maxBitRate,
+        format = if (transcode) "raw" else format,
+        estimateContentLength = estimateContentLength,
+        timeOffset = timeOffset,
+        size = size,
+        converted = converted
+    )
+
+    //TODO
+    suspend fun download(
+        id: String
+    ): ResponseBody = api.download(id)
+
 //    suspend fun get():  {
 //        return api.get().subsonicResponse.
 //    }

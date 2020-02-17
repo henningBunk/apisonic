@@ -1,6 +1,7 @@
 package interfaces
 
 import models.*
+import okhttp3.ResponseBody
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -208,8 +209,25 @@ interface Api {
         @Query("songIndicesToRemove") songIndicesToRemove: List<String>?
     ): Response<EmptyResponse>
 
+    @GET("deletePlaylist")
     fun deletePlaylist(
         @Query("playlistId") playlistId: String
     ): Response<EmptyResponse>
+
+    @GET("download")
+    fun download(
+        @Query("id") id: String
+    ): ResponseBody
+
+    @GET("stream")
+    fun stream(
+        @Query("id") id: String,
+        @Query("maxBitRate") maxBitRate: Int?,
+        @Query("format") format: String?,
+        @Query("timeOffset") timeOffset: Int?,
+        @Query("size") size: String?,
+        @Query("estimateContentLength") estimateContentLength: Boolean?,
+        @Query("converted") converted: Boolean?
+    ): ResponseBody
 
 }
