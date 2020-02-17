@@ -39,7 +39,7 @@ class ApiSonic(
 
     private val api = network.createApi(Api::class.java, url)
 
-    suspend fun ping(): PingResponse = api.ping().subsonicResponse
+    suspend fun ping(): EmptyResponse = api.ping().subsonicResponse
 
     suspend fun getLicense(): License = api.getLicense().subsonicResponse.license
 
@@ -199,10 +199,112 @@ class ApiSonic(
     //Todo Test
     suspend fun getScanStatus(): ScanStatus = api.getScanStatus().subsonicResponse.scanStatus
 
-//    suspend fun get():  {
-//        return api.get().subsonicResponse.
-//    }
-//
+    //Todo test
+    suspend fun starFileOrFolder(
+        vararg id: String
+    ): EmptyResponse {
+        return api.star(id = id.asList()).subsonicResponse
+    }
+
+    //Todo test
+    suspend fun starAlbum(
+        vararg albumId: String
+    ): EmptyResponse {
+        return api.star(albumIds = albumId.asList()).subsonicResponse
+    }
+
+    //Todo test
+    suspend fun starArtist(
+        vararg artistId: String
+    ): EmptyResponse {
+        return api.star(artistIds = artistId.asList()).subsonicResponse
+    }
+
+    //Todo test
+    suspend fun unstarFileOrFolder(
+        vararg id: String
+    ): EmptyResponse {
+        return api.unstar(id = id.asList()).subsonicResponse
+    }
+
+    //Todo test
+    suspend fun unstarAlbum(vararg albumId: String): EmptyResponse =
+        api.unstar(albumIds = albumId.asList()).subsonicResponse
+
+    //Todo test
+    suspend fun unstarArtist(vararg artistId: String): EmptyResponse =
+        api.unstar(artistIds = artistId.asList()).subsonicResponse
+
+    enum class Rating(val value: Int) {
+        REMOVE_RATING(0),
+        RATE_1_STAR(1),
+        RATE_2_STAR(2),
+        RATE_3_STAR(3),
+        RATE_4_STAR(4),
+        RATE_5_STAR(5)
+    }
+
+    //TODO TEST
+    suspend fun setRating(
+        id: String,
+        rating: Rating
+    ): EmptyResponse = api.setRating(id, rating.value).subsonicResponse
+
+    //TODO TEST
+    suspend fun removeRating(
+        id: String
+    ): EmptyResponse = api.setRating(id, Rating.REMOVE_RATING.value).subsonicResponse
+
+    //TODO TEST
+    suspend fun scrobble(
+        id: String,
+        time: Long? = null,
+        submission: Boolean? = null
+    ): EmptyResponse = api.scrobble(id, time, submission).subsonicResponse
+
+    //TODO TEST
+    suspend fun getPlaylists(
+        username: String? = null
+    ): List<Playlists.Playlist> = api.getPlaylists(username).subsonicResponse.playlists.playlists ?: emptyList()
+
+    //TODO TEST
+    suspend fun getPlaylist(
+        id: String
+    ): PlaylistResponse.Playlist = api.getPlaylist(id).subsonicResponse.playlist
+
+    //TODO TEST
+    suspend fun createPlaylist(
+        name: String,
+        songIds: List<String>? = null
+    ): EmptyResponse =
+        api.createPlaylist(playlistId = null, name = name, songIds = songIds).subsonicResponse
+
+    //TODO TEST
+    suspend fun overridePlaylist(
+        playlistId: String,
+        songIds: List<String>? = null
+    ): EmptyResponse =
+        api.createPlaylist(playlistId = playlistId, name = null, songIds = songIds).subsonicResponse
+
+    //TODO TEST
+    suspend fun overridePlaylist(
+        playlistId: String,
+        name: String? = null,
+        comment: String? = null,
+        public: Boolean? = null,
+        songIdsToAdd: List<String>? = null,
+        songIndicesToRemove: List<String>? = null
+    ): EmptyResponse =
+        api.updatePlaylist(playlistId, name, comment, public, songIdsToAdd, songIndicesToRemove).subsonicResponse
+
+    //TODO Helper method to remove songIds from playlist, not index
+
+    //TODO TEST
+    suspend fun deletePlaylist(
+        playlistId: String
+    ): EmptyResponse =
+        api.deletePlaylist(playlistId).subsonicResponse
+
 //    suspend fun get():  {
 //        return api.get().subsonicResponse.
 //    }

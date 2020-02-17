@@ -8,7 +8,7 @@ interface Api {
 
     @GET("ping")
     suspend fun ping(
-    ): Response<PingResponse>
+    ): Response<EmptyResponse>
 
     @GET("getLicense")
     suspend fun getLicense(
@@ -154,5 +154,62 @@ interface Api {
         @Query("musicFolderId") musicFolderId: String?
     ): Response<Starred2Response>
 
+    @GET("star")
+    suspend fun star(
+        @Query("id") id: List<String>? = null,
+        @Query("albumId") albumIds: List<String>? = null,
+        @Query("artistId") artistIds: List<String>? = null
+    ): Response<EmptyResponse>
+
+    @GET("unstar")
+    suspend fun unstar(
+        @Query("id") id: List<String>? = null,
+        @Query("albumId") albumIds: List<String>? = null,
+        @Query("artistId") artistIds: List<String>? = null
+    ): Response<EmptyResponse>
+
+    @GET("setRating")
+    suspend fun setRating(
+        @Query("id") id: String,
+        @Query("rating") rating: Int
+    ): Response<EmptyResponse>
+
+    @GET("scrobble")
+    suspend fun scrobble(
+        @Query("id") id: String,
+        @Query("time") time: Long?,
+        @Query("submission") submission: Boolean?
+    ): Response<EmptyResponse>
+
+    @GET("getPlaylists")
+    suspend fun getPlaylists(
+        @Query("username") username: String?
+    ): Response<PlaylistsResponse>
+
+    @GET("getPlaylist")
+    suspend fun getPlaylist(
+        @Query("id") id: String
+    ): Response<PlaylistResponse>
+
+    @GET("createPlaylist")
+    suspend fun createPlaylist(
+        @Query("playlistId") playlistId: String?,
+        @Query("name") name: String?,
+        @Query("songId") songIds: List<String>?
+    ): Response<EmptyResponse>
+
+    @GET("updatePlaylist")
+    suspend fun updatePlaylist(
+        @Query("playlistId") playlistId: String?,
+        @Query("name") name: String?,
+        @Query("comment") comment: String?,
+        @Query("public") public: Boolean?,
+        @Query("songIdsToAdd") songIdsToAdd: List<String>?,
+        @Query("songIndicesToRemove") songIndicesToRemove: List<String>?
+    ): Response<EmptyResponse>
+
+    fun deletePlaylist(
+        @Query("playlistId") playlistId: String
+    ): Response<EmptyResponse>
 
 }

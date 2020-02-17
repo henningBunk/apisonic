@@ -12,7 +12,7 @@ data class Response<T : SubsonicResponse>(
 
 
 @JsonClass(generateAdapter = true)
-data class PingResponse(
+data class EmptyResponse(
     @Json(name = "status") val status: String,
     @Json(name = "version") val version: String
 ) : SubsonicResponse
