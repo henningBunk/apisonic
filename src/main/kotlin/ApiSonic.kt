@@ -203,6 +203,49 @@ class ApiSonic(
         musicFolderId: String? = null
     ): Starred2 = api.getStarred2(musicFolderId).subsonicResponse.starred2
 
+    //TODO TEST
+    @Deprecated
+    suspend fun search(
+        artist: String? = null,
+        album: String? = null,
+        title: String? = null,
+        any: String? = null,
+        count: Int? = null,
+        offset: Int? = null,
+        newerThan: Long? = null
+    ): SearchResult = api.search(artist, album, title, any, count, offset, newerThan).subsonicResponse.searchResult
+
+
+    //TODO TEST
+    suspend fun search2(
+        query: String,
+        artistCount: Int? = null,
+        artistOffset: Int? = null,
+        albumCount: Int? = null,
+        albumOffset: Int? = null,
+        songCount: Int? = null,
+        songOffset: Int? = null,
+        musicFolderId: String? = null
+    ): SearchResult2 = api
+        .search2(query, artistCount, artistOffset, albumCount, albumOffset, songCount, songOffset, musicFolderId)
+        .subsonicResponse
+        .searchResult2
+
+    //TODO TEST
+    suspend fun search3(
+        query: String,
+        artistCount: Int? = null,
+        artistOffset: Int? = null,
+        albumCount: Int? = null,
+        albumOffset: Int? = null,
+        songCount: Int? = null,
+        songOffset: Int? = null,
+        musicFolderId: String? = null
+    ): SearchResult3 = api
+        .search3(query, artistCount, artistOffset, albumCount, albumOffset, songCount, songOffset, musicFolderId)
+        .subsonicResponse
+        .searchResult3
+
     //TODO Test
     suspend fun startScan(): ScanStatus = api.startScan().subsonicResponse.scanStatus
 
@@ -361,6 +404,55 @@ class ApiSonic(
     ): String = buildUrlManually("download", mapOf("id" to id))
 
     //TODO TEST
+    fun hlsUrl(
+        id: String,
+        bitRate: List<String>? = null,
+        audioTrack: String?
+    ): String = buildUrlManually(
+        "hls",
+        mapOf(
+            "id" to id,
+            "audioTrack" to audioTrack,
+            *(bitRate?.map { "bitRate" to it }?.toTypedArray() ?: emptyArray())
+        )
+    )
+
+    //TODO TEST
+    fun getCaptionsUrl(
+        id: String,
+        format: String? = null
+    ): String = buildUrlManually(
+        "getCaptions",
+        mapOf("id" to id, "format" to format)
+    )
+
+    //TODO TEST
+    fun getLyricsUrl(
+        artist: String? = null,
+        title: String? = null
+    ): String = buildUrlManually(
+        "getLyrics",
+        mapOf("artist" to artist, "title" to title)
+    )
+
+    //TODO TEST
+    fun getCoverArtUrl(
+        id: String,
+        size: Int? = null
+    ): String = buildUrlManually(
+        "getCoverArt",
+        mapOf("id" to id, "size" to size)
+    )
+
+    //TODO TEST
+    fun getAvatarUrl(
+        username: String
+    ): String = buildUrlManually(
+        "getAvatar",
+        mapOf("username" to username)
+    )
+
+    //TODO TEST
     fun streamAudio(
         id: String,
         maxBitRate: Int? = null,
@@ -397,10 +489,41 @@ class ApiSonic(
         converted = converted
     )
 
-    //TODO
+    //TODO TEST
     suspend fun download(
         id: String
     ): ResponseBody = api.download(id)
+
+    //TODO TEST
+    suspend fun hls(
+        id: String,
+        bitRate: List<String>? = null,
+        audioTrack: String?
+    ): ResponseBody = api.hls(id, bitRate, audioTrack)
+
+    //TODO TEST
+    suspend fun getCaptions(
+        id: String,
+        format: String? = null
+    ): ResponseBody = api.getCaptions(id, format)
+
+    //TODO TEST
+    suspend fun getLyrics(
+        artist: String? = null,
+        title: String? = null
+    ): ResponseBody = api.getLyrics(artist, title)
+
+    //TODO TEST
+    suspend fun getCoverArt(
+        id: String,
+        size: Int? = null
+    ): ResponseBody = api.getCoverArt(id, size)
+
+    //TODO TEST
+    suspend fun getAvatar(
+        username: String
+    ): ResponseBody = api.getAvatar(username)
+
 
 //    suspend fun get():  {
 //        return api.get().subsonicResponse.

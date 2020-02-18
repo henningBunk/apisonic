@@ -155,6 +155,41 @@ interface Api {
         @Query("musicFolderId") musicFolderId: String?
     ): Response<Starred2Response>
 
+    @GET("search")
+    suspend fun search(
+        @Query("artist") artist: String?,
+        @Query("album") album: String?,
+        @Query("title") title: String?,
+        @Query("any") any: String?,
+        @Query("count") count: Int?,
+        @Query("offset") offset: Int?,
+        @Query("newerThan") newerThan: Long?
+    ): Response<SearchResponse>
+
+    @GET("search2")
+    suspend fun search2(
+        @Query("query") query: String,
+        @Query("artistCount") artistCount: Int?,
+        @Query("artistOffset") artistOffset: Int?,
+        @Query("albumCount") albumCount: Int?,
+        @Query("albumOffset") albumOffset: Int?,
+        @Query("songCount") songCount: Int?,
+        @Query("songOffset") songOffset: Int?,
+        @Query("musicFolderId") musicFolderId: String?
+    ): Response<Search2Response>
+
+    @GET("search3")
+    suspend fun search3(
+        @Query("query") query: String,
+        @Query("artistCount") artistCount: Int?,
+        @Query("artistOffset") artistOffset: Int?,
+        @Query("albumCount") albumCount: Int?,
+        @Query("albumOffset") albumOffset: Int?,
+        @Query("songCount") songCount: Int?,
+        @Query("songOffset") songOffset: Int?,
+        @Query("musicFolderId") musicFolderId: String?
+    ): Response<Search3Response>
+
     @GET("star")
     suspend fun star(
         @Query("id") id: List<String>? = null,
@@ -228,6 +263,37 @@ interface Api {
         @Query("size") size: String?,
         @Query("estimateContentLength") estimateContentLength: Boolean?,
         @Query("converted") converted: Boolean?
+    ): ResponseBody
+
+    @GET("hls.m3u8")
+    fun hls(
+        @Query("id") id: String,
+        @Query("bitRate") bitRate: List<String>?,
+        @Query("audioTrack") audioTrack: String?
+    ): ResponseBody
+
+
+    @GET("getCaptions")
+    fun getCaptions(
+        @Query("id") id: String,
+        @Query("format") format: String?
+    ): ResponseBody
+
+    @GET("getLyrics")
+    fun getLyrics(
+        @Query("artist") artist: String?,
+        @Query("title") title: String?
+    ): ResponseBody
+
+    @GET("getCoverArt")
+    fun getCoverArt(
+        @Query("id") id: String,
+        @Query("size") size: Int?
+    ): ResponseBody
+
+    @GET("getAvatar")
+    fun getAvatar(
+        @Query("username") username: String
     ): ResponseBody
 
 }
