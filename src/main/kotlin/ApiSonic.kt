@@ -204,7 +204,7 @@ class ApiSonic(
     ): Starred2 = api.getStarred2(musicFolderId).subsonicResponse.starred2
 
     //TODO TEST
-    @Deprecated
+    @Deprecated("Deprecated since 1.4.0, use search2 instead.")
     suspend fun search(
         artist: String? = null,
         album: String? = null,
